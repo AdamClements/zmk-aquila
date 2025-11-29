@@ -10,11 +10,14 @@
 
 #define TAPPING_TERM 210
 #define QUICK_TAP    150
+/* Replaces deprecated global-quick-tap; see require-prior-idle-ms docs */
+#define IDLE_TERM    150
 
 &mt {
     flavor = "balanced";
     tapping-term-ms = <TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP>;
+    require-prior-idle-ms = <IDLE_TERM>;
 };
 
 / {
@@ -25,19 +28,23 @@
             #binding-cells = <2>;
             tapping-term-ms = <TAPPING_TERM>;
             quick-tap-ms = <QUICK_TAP>;
-            global-quick-tap;
+            /* global-quick-tap;  // deprecated */
+            require-prior-idle-ms = <IDLE_TERM>;
             flavor = "tap-preferred";
             bindings =
                 <&kp>,
                 <&kp>;
         };
+
         moto: momentary_to {
             compatible = "zmk,behavior-hold-tap";
             label = "MOMENTARY_TO";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             quick-tap-ms = <125>;
-            global-quick-tap;
+            /* global-quick-tap;  // deprecated */
+            /* Use the same value as quick-tap-ms for “typing streak” protection */
+            require-prior-idle-ms = <125>;
             flavor = "tap-preferred";
             bindings =
                 <&mo>,
