@@ -5,6 +5,7 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
 
 / {
 
@@ -85,6 +86,9 @@
 
 &pro_micro_i2c {
     status = "okay";
+    pinctrl-0 = <&pro_micro_i2c_alt_default>;
+    pinctrl-1 = <&pro_micro_i2c_alt_sleep>;
+    pinctrl-names = "default", "sleep";
 
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
@@ -100,5 +104,21 @@
         com-invdir;
         com-sequential;
         prechargep = <0x22>;
+    };
+};
+
+&pinctrl {
+    pro_micro_i2c_alt_default: pro_micro_i2c_alt_default {
+        group1 {
+            /* P1.04/P1.06 = pins 36/38 used by the right-half OLED */
+            psels = <NRF_PSEL(TWIM_SDA, 1, 4)>, <NRF_PSEL(TWIM_SCL, 1, 6)>;
+        };
+    };
+
+    pro_micro_i2c_alt_sleep: pro_micro_i2c_alt_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 1, 4)>, <NRF_PSEL(TWIM_SCL, 1, 6)>;
+            low-power-enable;
+        };
     };
 };
