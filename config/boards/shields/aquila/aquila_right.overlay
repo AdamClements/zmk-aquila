@@ -7,5 +7,17 @@
 #include "aquila.dtsi"
 
 &default_transform {
-	col-offset = <19>;
+        col-offset = <19>;
+};
+
+&encoder_1 {
+    status = "disabled";
+};
+
+&encoder_2 {
+    status = "disabled";
+};
+
+&sensors {
+    status = "disabled";
 };

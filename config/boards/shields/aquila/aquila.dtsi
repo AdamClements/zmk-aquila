@@ -15,12 +15,12 @@
 		zmk,matrix_transform = &default_transform;
 	};
 
-	// Left encoder
+        // Left encoder (shares pins with the OLED/I2C pads on encoder-only PCBs)
     encoder_1: encoder_1 {
         compatible = "alps,ec11";
         label = "Encoder 1";
-        a-gpios = <&gpio0 04 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 06 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        a-gpios = <&gpio1 04 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&gpio1 06 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         resolution = <4>;
         status = "okay";
     };
@@ -29,8 +29,8 @@
     encoder_2: encoder_2 {
         compatible = "alps,ec11";
         label = "Encoder 2";
-        a-gpios = <&gpio0 04 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 06 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        a-gpios = <&gpio1 04 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&gpio1 06 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         resolution = <4>;
         status = "okay";
     };
