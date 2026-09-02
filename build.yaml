@@ -17,3 +17,7 @@ include:
     shield: aquila_left
   - board: nice_nano//zmk
     shield: aquila_right
+  - board: nice_nano//zmk
+    shield: aquila_right
+    snippet: zmk-usb-logging
+    artifact-name: aquila_right_debug
