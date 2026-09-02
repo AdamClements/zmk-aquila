@@ -23,7 +23,7 @@ include:
     artifact-name: aquila_right_debug
   - board: nice_nano//zmk
     shield: aquila_right
-    cmake-args: -DCONFIG_ZMK_DISPLAY=n
+    cmake-args: -DCONFIG_ZMK_DISPLAY=n -DCONFIG_LVGL=n -DCONFIG_SSD1306=n
     artifact-name: aquila_right_nodisplay
   - board: nice_nano//zmk
     shield: settings_reset
