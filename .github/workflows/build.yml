@@ -1,5 +1,25 @@
-on: [push, pull_request, workflow_dispatch]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:3.0
+    strategy:
+      matrix:
+        shield: [aquila_left, aquila_right]
+    steps:
+      - uses: actions/checkout@v4
+      - name: West init and update
+        run: |
+          west init -l config
+          west update
+          west zephyr-export
+      - name: Build ${{ matrix.shield }}
+        run: |
+          west build -s zmk/app -d build/${{ matrix.shield }} -b nice_nano_v2 -- -DSHIELD=${{ matrix.shield }} -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          cp build/${{ matrix.shield }}/zephyr/zmk.uf2 ${{ matrix.shield }}-2022.uf2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.shield }}-2022
+          path: ${{ matrix.shield }}-2022.uf2
