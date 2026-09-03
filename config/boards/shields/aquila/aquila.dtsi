@@ -86,6 +86,11 @@
 
 &pro_micro_i2c {
     status = "okay";
+    /* The nice_nano//zmk board enables runtime PM on this bus, which the
+     * nRF TWI driver's transfer path never resumes — every transfer then
+     * runs against sleep-state pins and fails ("Error on I2C line"),
+     * killing ssd1306 init. Strip it: this bus must stay active. */
+    /delete-property/ zephyr,pm-device-runtime-auto;
     pinctrl-0 = <&pro_micro_i2c_alt_default>;
     pinctrl-1 = <&pro_micro_i2c_alt_sleep>;
     pinctrl-names = "default", "sleep";
