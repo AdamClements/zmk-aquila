@@ -30,5 +30,5 @@ include:
   # even if the boot hangs.
   - board: nice_nano//zmk
     shield: aquila_right
-    snippet: zmk-rtt-logging
+    cmake-args: -DCONFIG_LOG=y -DCONFIG_USE_SEGGER_RTT=y -DCONFIG_LOG_BACKEND_RTT=y -DCONFIG_LOG_BACKEND_RTT_MODE_DROP=y -DCONFIG_SEGGER_RTT_BUFFER_SIZE_UP=4096 -DCONFIG_ZMK_LOG_LEVEL_DBG=y
     artifact-name: aquila_right_central_debug
