@@ -13,17 +13,10 @@
 #
 ---
 include:
-  - board: nice_nano//zmk
+  - board: nice_nano_v2
     shield: aquila_left
-  - board: nice_nano//zmk
+  - board: nice_nano_v2
     shield: aquila_right
-  - board: nice_nano//zmk
+  - board: nice_nano_v2
     shield: settings_reset
     artifact-name: settings_reset
-  # Left central with USB logging + boot-log hold, to capture the display
-  # init failure ordering (suspected ext_power-rail-late regression).
-  - board: nice_nano//zmk
-    shield: aquila_left
-    snippet: zmk-usb-logging
-    cmake-args: -DCONFIG_LOG_PROCESS_THREAD_STARTUP_DELAY_MS=10000
-    artifact-name: aquila_left_central_debug
