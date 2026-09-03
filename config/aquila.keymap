@@ -17,7 +17,9 @@
     flavor = "balanced";
     tapping-term-ms = <TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP>;
-    require-prior-idle-ms = <IDLE_TERM>;
+    /* No require-prior-idle-ms here: the original tuning never had
+     * global-quick-tap on &mt, and adding it forces shift-on-A to
+     * resolve as "a" whenever pressed mid typing flow. */
 };
 
 / {
