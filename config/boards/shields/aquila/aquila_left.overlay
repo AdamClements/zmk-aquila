@@ -16,3 +16,10 @@
 &encoder_2 {
 	status = "disabled";
 };
+
+/* This OLED module needs longer VCC settle time before it will ACK i2c;
+ * the board default of 50ms is not enough (2022-era firmware, which had
+ * a much lazier boot, worked; every modern build failed init). */
+&{/EXT_POWER} {
+	init-delay-ms = <500>;
+};
