@@ -20,3 +20,18 @@
 &encoder_2 {
 	status = "disabled";
 };
+
+/* Mirrored PCB: the accessory connector's two data lines swap sides
+ * relative to the left half, so SDA/SCL are crossed here. */
+&pro_micro_i2c_alt_default {
+	group1 {
+		psels = <NRF_PSEL(TWIM_SDA, 0, 6)>, <NRF_PSEL(TWIM_SCL, 0, 4)>;
+	};
+};
+
+&pro_micro_i2c_alt_sleep {
+	group1 {
+		psels = <NRF_PSEL(TWIM_SDA, 0, 6)>, <NRF_PSEL(TWIM_SCL, 0, 4)>;
+		low-power-enable;
+	};
+};
