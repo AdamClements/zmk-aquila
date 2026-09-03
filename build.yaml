@@ -26,8 +26,10 @@ include:
     shield: aquila_left
     cmake-args: -DCONFIG_ZMK_SPLIT=n -DCONFIG_ZMK_DISPLAY=y -DCONFIG_I2C=y -DCONFIG_SSD1306=y -DCONFIG_LVGL=y -DCONFIG_LV_COLOR_DEPTH_1=y
     artifact-name: aquila_left_screentest
-  # Right central with USB logging for display debugging
+  # Right central with USB logging for display debugging; startup delay
+  # holds early boot logs until the USB console attaches.
   - board: nice_nano//zmk
     shield: aquila_right
     snippet: zmk-usb-logging
+    cmake-args: -DCONFIG_LOG_PROCESS_THREAD_STARTUP_DELAY_MS=8000
     artifact-name: aquila_right_central_debug
