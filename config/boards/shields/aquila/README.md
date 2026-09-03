@@ -34,25 +34,20 @@ Some revisions of the aforementioned PCBs have slightly different pin arrangemen
 
 This `&kscan0` block must be placed outside of any blocks surrounded by curly braces (`{...}`).
 
-## Known issue: OLED blank when split is enabled (2026-09)
+## OLED wiring (hardware-traced 2026-09)
 
-The SSD1306 OLED on the screen-fitted left half is **hardware-verified
-working**: a standalone build (`-DCONFIG_ZMK_SPLIT=n`, display forced on)
-renders widgets at SDA=P0.04 / SCL=P0.06, address 0x3C. The identical
-display config on a split central initializes the panel (cleared, no
-driver errors) but never renders a frame. A full generated-Kconfig diff
-between the working standalone build and the blank split build shows no
-display-stack differences — only BT/split. `CONFIG_ZMK_DISPLAY_WORK_QUEUE_DEDICATED=y`
-did not help. Suspected ZMK-main split-central + LVGL 9.3 interaction.
+Both halves route the OLED to **SDA = P1.04 (D8), SCL = P1.06 (D9)**,
+address 0x3C — identical on both sides because the nano is reversed on
+one half. This matches the original 2022 `sda-pin=<36>/scl-pin=<38>`
+config, which worked. (A 2026-09 debugging detour concluded the pins
+were P0.04/P0.06 based on widgets seen on a freshly flashed half — those
+turned out to be leftover pixels from the previous firmware, still shown
+because the panel never lost power. These OLEDs keep displaying their
+last content across MCU reflashes; only a battery-off power cycle
+clears them. Verify display changes after a true cold start.)
 
-Leads for whoever picks this up:
-- Capture a split-central boot log via RTT over SWD (no `zmk-rtt-logging`
-  snippet upstream; use `CONFIG_LOG_BACKEND_RTT` etc. — see commit 13a8ac9
-  for a build.yaml stanza). USB-CDC logging misses the boot window.
-- Check upstream ZMK issues for split central display regressions after
-  the Zephyr 4.1 / LVGL 9 migration; consider bisecting pinned ZMK versions.
-- The right half's OLED may be fine too: its only "failed init" log was
-  taken with left-half pins. Right halves may route the accessory
-  connector to P1.04/P1.06 (the 2022 `sda-pin=<36>/scl-pin=<38>` config
-  that historically worked on that half). NB: display enabled on floating
-  pins hangs the entire boot (before USB) on Zephyr 4.1.
+The right half's display is currently disabled in `aquila_right.conf`:
+with the display enabled there, boot hung entirely (pre-USB) on Zephyr
+4.1 — either its panel/wiring was damaged in the 2025 electrical mishap,
+or something else; test by re-enabling its display config after
+confirming the left half renders.
