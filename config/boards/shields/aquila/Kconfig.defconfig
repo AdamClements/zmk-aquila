@@ -1,11 +1,14 @@
 # Copyright (c) 2020 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
-if SHIELD_AQUILA_LEFT
+if SHIELD_AQUILA_RIGHT
 
 config ZMK_KEYBOARD_NAME
         default "Aquila"
 
+# The right half (with the OLED) is the central: display widgets for layer
+# and output status only run on the central, so the screen half must own
+# that role to show more than battery status.
 config ZMK_SPLIT_ROLE_CENTRAL
         default y
 
