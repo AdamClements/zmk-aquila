@@ -9,3 +9,14 @@
 &default_transform {
 	col-offset = <19>;
 };
+
+/* The right half has the OLED on the accessory connector, not an encoder.
+ * The encoder pins (P0.04/P0.06) are the i2c bus here — leaving the EC11
+ * devices enabled would read i2c traffic as phantom rotations. */
+&encoder_1 {
+	status = "disabled";
+};
+
+&encoder_2 {
+	status = "disabled";
+};
