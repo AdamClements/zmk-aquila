@@ -20,15 +20,3 @@ include:
   - board: nice_nano//zmk
     shield: settings_reset
     artifact-name: settings_reset
-  # Standalone display-test build for the spare screen-fitted left half:
-  # split disabled (won't touch the working pair's pairing), display forced on.
-  - board: nice_nano//zmk
-    shield: aquila_left
-    cmake-args: -DCONFIG_ZMK_SPLIT=n -DCONFIG_ZMK_DISPLAY=y -DCONFIG_I2C=y -DCONFIG_SSD1306=y -DCONFIG_LVGL=y -DCONFIG_LV_COLOR_DEPTH_1=y
-    artifact-name: aquila_left_screentest
-  # Right central with RTT logging: boot log readable over SWD from t=0,
-  # even if the boot hangs.
-  - board: nice_nano//zmk
-    shield: aquila_right
-    cmake-args: -DCONFIG_LOG=y -DCONFIG_USE_SEGGER_RTT=y -DCONFIG_LOG_BACKEND_RTT=y -DCONFIG_LOG_BACKEND_RTT_MODE_DROP=y -DCONFIG_SEGGER_RTT_BUFFER_SIZE_UP=4096 -DCONFIG_ZMK_LOG_LEVEL_DBG=y
-    artifact-name: aquila_right_central_debug

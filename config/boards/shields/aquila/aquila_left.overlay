@@ -5,3 +5,14 @@
  */
 
 #include "aquila.dtsi"
+
+/* This left half carries the OLED on the accessory connector, not an
+ * encoder — the EC11 devices would read i2c traffic as phantom
+ * rotations if left enabled. */
+&encoder_1 {
+	status = "disabled";
+};
+
+&encoder_2 {
+	status = "disabled";
+};
